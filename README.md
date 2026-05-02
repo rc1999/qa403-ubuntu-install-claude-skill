@@ -24,17 +24,40 @@ the full install procedure plus the gotchas you only learn the hard way
 
 ## Installing the skill into Claude Code
 
-The skill lives at `skills/qa40x-install-ubuntu/SKILL.md`. To use it:
+This repo is packaged as a Claude Code **plugin**, so the easy path is:
+
+```bash
+claude plugin install rc1999/qa403-ubuntu-install-claude-skill
+```
+
+(That installs from this GitHub repo. Restart Claude Code and the skill is
+live.) After install, the skill loads automatically and will trigger on
+prompts like "install QA40x on this machine", "QA403 isn't detected on
+Linux", "mono QA40x.exe crashes with BadAlloc", "running QA40x in a VM",
+etc.
+
+To uninstall: `claude plugin uninstall qa40x-install-ubuntu`.
+
+### Manual install (if you don't want the plugin wrapper)
+
+The skill itself is just one markdown file. Copy it directly:
 
 ```bash
 mkdir -p ~/.claude/skills/qa40x-install-ubuntu
-cp skills/qa40x-install-ubuntu/SKILL.md ~/.claude/skills/qa40x-install-ubuntu/
+curl -fsSL https://raw.githubusercontent.com/rc1999/qa403-ubuntu-install-claude-skill/main/skills/qa40x-install-ubuntu/SKILL.md \
+  -o ~/.claude/skills/qa40x-install-ubuntu/SKILL.md
 ```
 
-…and restart your Claude Code session. The skill loads automatically and
-will trigger on prompts like "install QA40x on this machine", "QA403 isn't
-detected on Linux", "mono QA40x.exe crashes with BadAlloc", "running QA40x
-in a VM", etc.
+Or clone the repo and copy:
+
+```bash
+git clone https://github.com/rc1999/qa403-ubuntu-install-claude-skill.git
+mkdir -p ~/.claude/skills/qa40x-install-ubuntu
+cp qa403-ubuntu-install-claude-skill/skills/qa40x-install-ubuntu/SKILL.md \
+   ~/.claude/skills/qa40x-install-ubuntu/
+```
+
+Either way, restart Claude Code afterwards.
 
 ## Scope
 

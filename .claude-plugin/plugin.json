@@ -1,0 +1,28 @@
+{
+  "$schema": "https://anthropic.com/claude-code/plugin.schema.json",
+  "name": "qa40x-install-ubuntu",
+  "description": "Install QuantAsylum's QA40x audio-analyzer software (drives the QA402 / QA403 hardware) on Ubuntu / Debian-based Linux. Walks through udev rules, ModemManager blacklist, Mono official-repo install, libusb, Wine to extract the Windows installer, copying out of the Wine prefix, and running mono QA40x.exe. State-detects an existing install and only runs missing steps. Includes a failure-modes table and X11 BadAlloc / GDI+ GenericError troubleshooting (the AccelMethod XAA xorg.conf workaround), plus a Using-QA40x-in-a-VM section. Tested on Ubuntu 20.04 Focal and 24.04 Noble with QA40x installer 1.220 and 1.222 against QA403 hardware.",
+  "version": "1.0.0",
+  "author": {
+    "name": "rc1999",
+    "url": "https://github.com/rc1999"
+  },
+  "homepage": "https://github.com/rc1999/qa403-ubuntu-install-claude-skill",
+  "repository": "https://github.com/rc1999/qa403-ubuntu-install-claude-skill",
+  "license": "MIT",
+  "keywords": [
+    "quantasylum",
+    "qa40x",
+    "qa402",
+    "qa403",
+    "audio-analyzer",
+    "ubuntu",
+    "linux",
+    "mono",
+    "wine",
+    "udev",
+    "libusb",
+    "install",
+    "skill"
+  ]
+}
