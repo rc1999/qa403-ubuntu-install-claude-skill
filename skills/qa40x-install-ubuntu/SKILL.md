@@ -45,6 +45,25 @@ Trigger on any of these intents:
 
 The full reference document, written from a known-good install, lives at `~/qa403/INSTALL.md` on this user's machine (and at the repo root in this skill's source). The flow has 10 numbered steps. This skill walks through them in order, but **state-detect each one and skip if already done**.
 
+### Faster path: the bundled `install-qa40x.sh` script
+
+The plugin ships a one-shot installer at `scripts/install-qa40x.sh` (in the plugin's source tree, e.g. `~/.claude/plugins/marketplaces/<marketplace>/plugins/qa40x-install-ubuntu/scripts/install-qa40x.sh` or wherever the user cloned the repo). It does everything from Steps 1–6 (and 8) idempotently and is safe to re-run.
+
+**Offer the user the script first** before walking through the steps manually — most people prefer one command over ten:
+
+```bash
+./scripts/install-qa40x.sh                              # phase 1: deps
+./scripts/install-qa40x.sh --exe ~/Downloads/setup_QA40x_*.exe   # phase 2: install QA40x
+```
+
+Useful flags:
+- `--exe PATH` — run the QA40x Windows installer under Wine and copy the result into `~/qa403/`. Without this flag the script just installs system dependencies and tells the user where to download the EXE from.
+- `--skip-wine` — don't install Wine (use this if the user is copying `~/qa403/` from a Windows machine instead).
+- `--no-mono-official` — use Ubuntu's stock `mono-complete` (6.8.x) instead of adding the Mono official `stable-focal` apt source. Slightly older but no third-party repo.
+- `-y` / `--yes` — skip the one-time sudo confirmation prompt. Sudo password is still required, just no extra "are you sure?" prompts.
+
+Walk the user through the manual steps below only if they explicitly want to step through them, or if they hit a failure mode the script doesn't handle (e.g., the X11 BadAlloc / GDI+ rendering issues — those need Section "Troubleshooting" below, not a different install path).
+
 ### Step 0 — Sanity check & gather context
 
 Run all of these in parallel — they're cheap reads:

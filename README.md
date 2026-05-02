@@ -14,13 +14,43 @@ the full install procedure plus the gotchas you only learn the hard way
 
 ## Contents
 
+- **[`scripts/install-qa40x.sh`](scripts/install-qa40x.sh)** — one-shot
+  installer. Idempotent (safe to re-run), state-detects what's already in
+  place, handles all the apt installs / udev rules / Wine setup. Use this
+  if you don't want to step through the install manually.
 - **[`INSTALL.md`](INSTALL.md)** — human-readable, paste-and-run install
-  guide. Read this if you're installing QA40x by hand.
+  guide. Read this if you want to understand each step or run them by hand.
 - **[`skills/qa40x-install-ubuntu/SKILL.md`](skills/qa40x-install-ubuntu/SKILL.md)** —
   the Claude Code skill version. When loaded into Claude Code, this lets
   Claude walk you through the install (or a partial reinstall, or
   troubleshoot connection / rendering issues), state-detecting what's
   already in place and only running the missing steps.
+
+## Quick install (one-shot script)
+
+If you don't want to step through INSTALL.md by hand:
+
+```bash
+git clone https://github.com/rc1999/qa403-ubuntu-install-claude-skill.git
+cd qa403-ubuntu-install-claude-skill
+
+# 1. install dependencies (mono, libusb, wine, udev rules)
+./scripts/install-qa40x.sh
+
+# 2. download setup_QA40x_X.YYY.exe from
+#    https://github.com/QuantAsylum/QA40x/releases  (current: 1.222)
+
+# 3. re-run the script with the EXE path — it'll wine-install and copy out
+./scripts/install-qa40x.sh --exe ~/Downloads/setup_QA40x_1.222.exe
+
+# 4. run it
+cd ~/qa403 && mono QA40x.exe
+```
+
+Useful flags: `--skip-wine` (use this if you're copying `~/qa403/` from a
+Windows machine), `--no-mono-official` (use Ubuntu's stock 6.8.x instead of
+adding the Mono official repo), `-y` (skip confirmation prompts). See the
+script's `--help` for the full list.
 
 ## Installing the skill into Claude Code
 
