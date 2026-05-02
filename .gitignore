@@ -1,0 +1,16 @@
+# OS / editor
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+
+# Local install artifacts (don't commit binaries / EXE / wine prefix)
+*.exe
+*.iso
+*.qcow2
+.wine/
+qa403/
+
+# Logs
+*.log
